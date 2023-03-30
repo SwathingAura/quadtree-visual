@@ -9,13 +9,13 @@ std::vector<int> lines;
 
 class Quad {
 public:
-	int boundX;
-	int boundY;
+	int maxX;
+	int maxY;
 	int minX;
 	int minY;
 	Quad(int mx, int my, int x, int y) {
-		boundX = x;
-		boundY = y;
+		maxX = x;
+		maxY = y;
 		minX = mx;
 		minY = my;
 		topLeft = NULL;
@@ -24,20 +24,20 @@ public:
 		botRight = NULL;
 		lines.push_back(minX);
 		lines.push_back(minY);
-		lines.push_back(boundX);
-		lines.push_back(boundY);
+		lines.push_back(maxX);
+		lines.push_back(maxY);
 	}
 	void insert(int x, int y) {
 		if (!inBoundary(x, y)) {
 			return;
 		}
-		if (boundX - minX <= 1) {
+		if (maxX - minX <= 1) {
 			return;
 		}
-		topLeft = new Quad(minX, minY, (minX + boundX)/2, (minY + boundY)/2);
-		botLeft = new Quad(minX, (minY + boundY)/2, (minX + boundX) / 2, boundY);
-		topRight = new Quad((minX + boundX) / 2, minY, boundX, (minY + boundY) / 2);
-		botRight = new Quad((minX + boundX) / 2, (minY + boundY) / 2, boundX, boundY);
+		topLeft = new Quad(minX, minY, (minX + maxX)/2, (minY + maxY)/2);
+		botLeft = new Quad(minX, (minY + maxY)/2, (minX + maxX) / 2, maxY);
+		topRight = new Quad((minX + maxX) / 2, minY, maxX, (minY + maxY) / 2);
+		botRight = new Quad((minX + maxX) / 2, (minY + maxY) / 2, maxX, maxY);
 		topLeft->insert(x, y);
 		botLeft->insert(x, y);
 		topRight->insert(x, y);
@@ -50,7 +50,7 @@ private:
 	Quad* botLeft;
 	Quad* botRight;
 	bool inBoundary(int x, int y) {
-		if (x > boundX - 1 || y > boundY - 1) {
+		if (x > maxX - 1 || y > maxY - 1) {
 			return false;
 		}
 		if (x < minX || y < minY) {
