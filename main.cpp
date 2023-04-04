@@ -76,7 +76,6 @@ int main(int argc, char** argv) {
 			}
 			if (e.type == SDL_MOUSEBUTTONDOWN) {
 				SDL_GetMouseState(&mouseX, &mouseY);
-				// std::cout << mouseX << " " << mouseY << std::endl;
 				newMouseEvent = true;
 			}
 		}
@@ -87,7 +86,6 @@ int main(int argc, char** argv) {
 			if (mouseY < 400) {
 				mouseY += 1;
 			}
-			// newMouseEvent = false;
 		}
 		// drawQuads
 		SDL_RenderClear(rend);
